@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+    <script>
+      var map;
+        // Initialize and add the map
+      function initMap() {
+        geocoder = new google.maps.Geocoder();
+        var address = "219 S EAST ST WATSON, IL";
+        // The location of Uluru
+        var uluru = {lat: -25.344, lng: 131.036};
+        // The map, centered at Uluru
+        map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 4, center: "Area Here"});
+        // The marker, positioned at Uluru
+        // var marker = new google.maps.Marker({position: address, map: map});
+        codeAddress();
+      }
+
+      function codeAddress() {
+        // Update this path or the code won't work.
+        readTextFile("file:///C:/your/path/to/file.txt");
+        //var address = document.getElementById('address').value;
+        var addresses = ["ADDRESS"];
+        for(var i = 0; i < addresses.length; i++){
+          geocoder.geocode( { 'address': addresses[i]}, function(results, status) {
+            if (status == 'OK') {
+              map.setCenter(results[0].geometry.location);
+              var marker = new google.maps.Marker({
+                  map: map,
+                  position: results[0].geometry.location,
+                  icon: {
+                    path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                    strokeColor: "blue",
+                    scale: 3
+                  }
+              });
+            } else {
+              alert('Geocode was not successful for the following reason: ' + status);
+            }
+          });
+        }
+      }
+
+      function readTextFile(file)
+      {
+          var rawFile = new XMLHttpRequest();
+          rawFile.open("GET", file, false);
+          rawFile.onreadystatechange = function ()
+          {
+              if(rawFile.readyState === 4)
+              {
+                  if(rawFile.status === 200 || rawFile.status == 0)
+                  {
+                      var allText = rawFile.responseText;
+                      alert(allText);
+                  }
+              }
+          }
+          rawFile.send(null);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=(Add your key here.)&callback=initMap">
+    </script>
+  </body>
+</html>

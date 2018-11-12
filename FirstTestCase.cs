@@ -23,7 +23,7 @@ namespace IFCDATA
                 houseNumberElement.SendKeys(j.ToString());
                 IWebElement zipCodeElement = driver.FindElement(By.Id("chkpt-lookup-zip-code"));
                 zipCodeElement.Clear();
-                zipCodeElement.SendKeys("0");
+                zipCodeElement.SendKeys("62473");
                 IWebElement lookUpButton = driver.FindElement(By.ClassName("uk-button"));
                 lookUpButton.Click();
 
